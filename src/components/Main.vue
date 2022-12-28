@@ -17,13 +17,13 @@
   
       <v-main class="bg-grey-lighten-3">
         <v-container>
-          <v-row>
+          <v-row color="grey lighten-3">
             <v-col cols="12" sm="1">
   
             </v-col>
   
             <v-col cols="12" sm="10">
-              <v-sheet min-height="70vh" rounded="lg">
+              <v-sheet min-height="70vh" rounded="lg" elevation="18">
                 <!--  -->
                 <ByMonth />
                 <!-- <ByMonth v-if="tab == 'Por mês'" /> -->

@@ -17,9 +17,36 @@
             </v-row>
             <v-row>
                 <v-col>
-                    <v-data-table :headers="headers" :items="printers" :items-per-page="100"
-                        class="elevation-1"></v-data-table>
+                    <div>
+                        SN
+                    </div>
                 </v-col>
+                <v-col>IP</v-col>
+                <v-col>Total de Impressões</v-col>
+                <v-col>Total de Cópias</v-col>
+                <v-col>Total de Cópias+Impressões</v-col>
+                <v-col>Total de Digitalizações</v-col>
+                <v-col>Início</v-col>
+                <v-col>Fim</v-col>
+            </v-row>
+            <v-row v-for="printer in printers" :key="printer.id">
+                <template v-if="printer.msg">
+                    <v-col>{{ printer.msg }}</v-col>
+                </template>
+                <template v-else>
+                    <v-col>
+                        <div>
+                            {{ printer.sn }}
+                        </div>
+                    </v-col>
+                    <v-col>{{ printer.ip }}</v-col>
+                    <v-col>{{ printer.totalPrints }}</v-col>
+                    <v-col>{{ printer.totalCopies }}</v-col>
+                    <v-col>{{ printer.totalCopies + printer.totalPrints }}</v-col>
+                    <v-col>{{ printer.totalScans }}</v-col>
+                    <v-col>{{ printer.startTime }}</v-col>
+                    <v-col>{{ printer.endTime }}</v-col>
+                </template>
             </v-row>
         </v-container>
     </div>
@@ -46,17 +73,7 @@ export default {
             ],
             year: new Date().getFullYear(),
             years: Array(28).fill(0).map((e, i) => i + 2018),
-            printers: [],
-            headers:[
-                {text: 'SN', value: 'sn', align: 'center', sortable: true},
-                {text: 'IP',value:'ip',align:'center',sortable:true},
-                {text: 'Total de Impressões',value:'totalPrints',align:'center',sortable:true},
-                {text: 'Total de Cópias',value:'totalCopies',align:'center',sortable:true},
-                {text: 'Total de Cópias + Impressões',value:'totalPrintsPlusCopies',align:'center',sortable:true},
-                {text: 'Total de Digitalizações',value:'totalScans',align:'center',sortable:true},
-                {text: 'Data e hora do primeiro contador obtido do mês',value:'startTime',align:'center',sortable:true},
-                {text: 'Data e hora do último contador obtido do mês',value:'endTime',align:'center',sortable:true},
-            ]
+            printers: {}
         }
     },
     methods: {
@@ -68,24 +85,7 @@ export default {
                 year: this.year
             })
                 .then(data => {
-                    this.printers = data.data.map(item=>{
-                        if (item.msg){
-                            return {
-                                sn:item.sn,
-                                ip: item.ip,
-                                totalPrints: 'Sem dados para o período',
-                                totalCopies: 'Sem dados para o período',
-                                totalScans: 'Sem dados para o período',
-                                totalPrintsPlusCopies: 'Sem dados para o período',
-                                startTime:  'Sem dados para o período',
-                                endTime:  'Sem dados para o período',
-                            }
-                        }
-                        return {
-                            totalPrintsPlusCopies: item.totalPrints + item.totalCopies,
-                            ...item
-                        }
-                    })
+                    this.printers = data.data
                     console.log(this.printers)
                 })
 
