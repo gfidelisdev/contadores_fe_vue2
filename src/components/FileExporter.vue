@@ -38,6 +38,11 @@ export default {
 
         parseToCsv(jsonArray) {
             let keys = Object.keys(jsonArray[0])
+            keys = keys.filter((key) => {
+                if (typeof jsonArray[0][key] !== "object") {
+                    return key
+                }
+            })
             let headers = keys.join(";")
             console.warn(headers)
             let result = ""
