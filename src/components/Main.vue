@@ -25,9 +25,9 @@
             <v-col cols="12" sm="10">
               <v-sheet min-height="70vh" rounded="lg" elevation="18">
                 <!--  -->
-                <ByMonth />
-                <!-- <ByMonth v-if="tab == 'Por mês'" /> -->
-                <!-- <ByInterval v-if="tab == 'Por intervalo'" /> -->
+                <!-- <ByMonth /> -->
+                <ByMonth v-if="byMonth" />
+                <ByInterval v-if="byInterval" />
               </v-sheet>
             </v-col>
   
@@ -42,18 +42,31 @@
 
 <script>
 import ByMonth from '@/components/ByMonth.vue'
-// import ByInterval from '@/components/ByInterval.vue'
+import ByInterval from '@/components/ByInterval.vue'
 export default {
   components: {
     ByMonth,
-    // ByInterval
+    ByInterval
   },
   data: () => ({
-    tab: 'Por mês',
+    tab: 0,
     links: [
       'Por mês',
-    //   'Por intervalo',
+      'Por intervalo',
     ],
   }),
+  computed: {
+    tabSel(){
+      console.log('tabsel',this.tab)
+      return this.tab
+    },
+    byMonth(){
+      console.log(this.tab)
+      return this.tab == 0
+    },
+    byInterval(){
+      return this.tab == 1
+    }
+  },
 }
 </script>
