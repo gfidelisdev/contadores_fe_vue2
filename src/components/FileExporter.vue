@@ -44,12 +44,10 @@ export default {
                 }
             })
             let headers = keys.join(";")
-            console.warn(headers)
             let result = ""
             for (let line of jsonArray) {
                 let objResult = []
                 for (let key of keys) {
-                    console.error(typeof line[key])
                     if (typeof line[key] !== "object") {
                         objResult.push(line[key])
                     } else {

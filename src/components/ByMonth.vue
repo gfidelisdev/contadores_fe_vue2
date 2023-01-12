@@ -83,6 +83,24 @@ export default {
           sortable: true,
         },
         {
+          text: "Total de Impressões Coloridas",
+          value: "totalPrintsColor",
+          align: "center",
+          sortable: true,
+        },
+        {
+          text: "Total de Cópias Coloridas",
+          value: "totalCopiesColor",
+          align: "center",
+          sortable: true,
+        },
+        {
+          text: "Total de Cópias + Impressões Coloridas",
+          value: "totalPrintsPlusCopiesColor",
+          align: "center",
+          sortable: true,
+        },
+        {
           text: "Total de Digitalizações",
           value: "totalScans",
           align: "center",
@@ -112,6 +130,7 @@ export default {
         })
         .then((data) => {
           this.printers = data.data.map((item) => {
+            console.warn(item)
             if (item.msg) {
               return {
                 sn: item.sn,
@@ -120,6 +139,9 @@ export default {
                 totalCopies: "Sem dados para o período",
                 totalScans: "Sem dados para o período",
                 totalPrintsPlusCopies: "Sem dados para o período",
+                totalPrintsColor: "Sem dados para o período",
+                totalCopiesColor: "Sem dados para o período",
+                totalPrintsPlusCopiesColor:"Sem dados para o período",
                 startTime: "Sem dados para o período",
                 endTime: "Sem dados para o período",
               };
