@@ -22,6 +22,7 @@
               <ByMonth v-if="byMonth" />
               <ByInterval v-if="byInterval" />
               <FailuresList v-if="listFailures" />
+              <PrintersByDay v-if="printersByDay" />
             </v-sheet>
           </v-col>
 
@@ -37,12 +38,14 @@
 <script>
 import ByMonth from '@/components/ByMonth.vue'
 import ByInterval from '@/components/ByInterval.vue'
-import FailuresList from '@/components/FailuresList'
+import FailuresList from '@/components/FailuresList.vue'
+import PrintersByDay from '@/components/PrintersByDay.vue'
 export default {
   components: {
     ByMonth,
     ByInterval,
-    FailuresList
+    FailuresList,
+    PrintersByDay
   },
   data: () => ({
     tab: 0,

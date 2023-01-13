@@ -1,20 +1,20 @@
 <template>
   <div>
     <v-container fluid>
-      <v-row>
-        <v-col>
+      <v-row class="myCenter">
+        <v-col class="myCenter">
           <!-- Selectors for month and year, and a submit button -->
           <v-select :items="months" v-model="month" label="Mês"></v-select>
         </v-col>
-        <v-col>
+        <v-col class="myCenter">
           <v-select :items="years" v-model="year" label="Ano"></v-select>
         </v-col>
-        <v-col>
+        <v-col class="myCenter">
           <v-btn @click="generateReport()" color="success" fab>
             <v-icon color="white">mdi-check</v-icon>
           </v-btn>
         </v-col>
-        <v-col>
+        <v-col  class="myCenter">
           <FileExporter
             v-if="printersIsNotNull"
             :json-obj-to-csv="printers"
@@ -130,7 +130,7 @@ export default {
         })
         .then((data) => {
           this.printers = data.data.map((item) => {
-            console.warn(item)
+            console.warn(item);
             if (item.msg) {
               return {
                 sn: item.sn,
@@ -141,13 +141,14 @@ export default {
                 totalPrintsPlusCopies: "Sem dados para o período",
                 totalPrintsColor: "Sem dados para o período",
                 totalCopiesColor: "Sem dados para o período",
-                totalPrintsPlusCopiesColor:"Sem dados para o período",
+                totalPrintsPlusCopiesColor: "Sem dados para o período",
                 startTime: "Sem dados para o período",
                 endTime: "Sem dados para o período",
               };
             }
             return {
               totalPrintsPlusCopies: item.totalPrints + item.totalCopies,
+              totalPrintsPlusCopiesColor: item.totalPrintsColor + item.totalCopiesColor,
               ...item,
             };
           });
@@ -162,4 +163,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
