@@ -14,21 +14,14 @@
             <v-icon color="white">mdi-check</v-icon>
           </v-btn>
         </v-col>
-        <v-col  class="myCenter">
-          <FileExporter
-            v-if="printersIsNotNull"
-            :json-obj-to-csv="printers"
-          ></FileExporter>
+        <v-col class="myCenter">
+          <FileExporter v-if="printersIsNotNull" :json-obj-to-csv="printers"></FileExporter>
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <v-data-table
-            :headers="headers"
-            :items="printers"
-            :items-per-page="100"
-            class="elevation-1"
-          ></v-data-table>
+          <v-data-table fixed-header height="60vh" :headers="headers" :items="printers" :items-per-page="100"
+            class="elevation-1"></v-data-table>
         </v-col>
       </v-row>
     </v-container>
@@ -37,11 +30,14 @@
 
 <script>
 import FileExporter from "./FileExporter";
+const date = new Date()
+const selectedMonth = date.getMonth() === 0 ? 12 : date.getMonth()
+const selectedYear = selectedMonth === 12 ? date.getFullYear() - 1 : date.getFullYear()
 export default {
   components: { FileExporter },
   data() {
     return {
-      month: 1,
+      month: selectedMonth,
       months: [
         { text: "Janeiro", value: 1 },
         { text: "Fevereiro", value: 2 },
@@ -56,14 +52,15 @@ export default {
         { text: "Novembro", value: 11 },
         { text: "Dezembro", value: 12 },
       ],
-      year: new Date().getFullYear(),
+      year: selectedYear,
       years: Array(28)
         .fill(0)
-        .map((e, i) => i + 2018),
+        .map((e, i) => i + 2022),
       printers: [],
       headers: [
         { text: "SN", value: "sn", align: "center", sortable: true },
         { text: "IP", value: "ip", align: "center", sortable: true },
+        { text: "Local", value: "location", align: "center", sortable: true },
         {
           text: "Total de Impressões",
           value: "totalPrints",
@@ -118,6 +115,26 @@ export default {
           align: "center",
           sortable: true,
         },
+        {
+          text: "Contador Inicial",
+          value: "startCounter",
+          align: "center"
+        },
+        {
+          text: "Contador Final",
+          value: "endCounter",
+          align: "center"
+        },
+        {
+          text: "Contador Inicial Color",
+          value: "startCounterColor",
+          align: "center"
+        },
+        {
+          text: "Contador Final Color",
+          value: "endCounterColor",
+          align: "center"
+        }
       ],
     };
   },
@@ -130,7 +147,6 @@ export default {
         })
         .then((data) => {
           this.printers = data.data.map((item) => {
-            console.warn(item);
             if (item.msg) {
               return {
                 sn: item.sn,
@@ -149,6 +165,10 @@ export default {
             return {
               totalPrintsPlusCopies: item.totalPrints + item.totalCopies,
               totalPrintsPlusCopiesColor: item.totalPrintsColor + item.totalCopiesColor,
+              startCounter: item.startCounters.total_copies + item.startCounters.total_prints,
+              endCounter: item.endCounters.total_copies + item.endCounters.total_prints,
+              startCounterColor: item.startCounters.total_copies_color + item.startCounters.total_prints_color,
+              endCounterColor: item.endCounters.total_copies_color + item.endCounters.total_prints_color,
               ...item,
             };
           });
@@ -163,6 +183,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

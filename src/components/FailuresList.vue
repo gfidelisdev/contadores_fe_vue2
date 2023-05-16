@@ -18,41 +18,54 @@
                 <!-- <FileExporter v-if="printersIsNotNull" :json-obj-to-csv="printers"></FileExporter> -->
             </v-col>
         </v-row>
+        <v-row>
+            <v-col>
+                Impressora
+            </v-col>
+            <v-col>IP</v-col>
+            <v-col>Localização</v-col>
+            <v-col>Horário da falha</v-col>
+        </v-row>
         <v-row v-for="report in reports" :key="report.id">
             <v-col>
-                {{report.ip}} - {{report.sn}} 
+                {{ report.printer.sn }}
+            </v-col>
+            <v-col>{{ report.printer.location }}</v-col>
+            <v-col>
+                {{ report.printer.ip }}
             </v-col>
             <v-col>
-                {{ report.endCounters?.total_copies + report.endCounters?.total_prints }}
-            </v-col>
-            <v-col>
-                {{ report.endCounters?.total_scans }}
+                {{ report.failure_time | formatDate }}
             </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
+import { formatDate } from "@/filters/filters"
 export default {
     data() {
         return {
-            startTime:'',
-            endTime:'',
-            reports:[]
+            startTime: '',
+            endTime: '',
+            reports: []
         }
     },
+    filters: {
+        formatDate
+    },
     methods: {
-        getFailures(){
+        getFailures() {
             this.$axios.post("/failures", {
                 startTime: this.startTime,
                 endTime: this.endTime
             })
-            .then(data=>{
-                this.reports = data.data
-            })
-            .catch(error=>{
-                console.error(error)
-            })
+                .then(data => {
+                    this.reports = data.data
+                })
+                .catch(error => {
+                    console.error(error)
+                })
         }
     },
 }
@@ -62,5 +75,5 @@ export default {
 .center {
     display: flex;
     justify-content: center;
-  }
+}
 </style>

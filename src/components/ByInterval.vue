@@ -42,7 +42,7 @@
 
         <v-row v-for="report in reports" :key="report.id">
             <v-col>
-                {{report.ip}} - {{report.sn}} 
+                {{ report.ip }} - {{ report.sn }}
             </v-col>
             <v-col>
                 {{ report.endCounters?.total_copies + report.endCounters?.total_prints }}
@@ -77,8 +77,8 @@ export default {
                 })
         },
         toggle() {
-            this.$nextTick(()=>{
-                if (this.allPrintersSelected) this.printersModel=[]
+            this.$nextTick(() => {
+                if (this.allPrintersSelected) this.printersModel = []
                 else this.printersModel = this.printers.slice()
             })
         }
@@ -87,17 +87,17 @@ export default {
         printersIsNotNull() {
             return this.printers.length;
         },
-        allPrintersSelected(){
+        allPrintersSelected() {
             return this.printersModel.length == this.printers.length
         },
-        somePrintersSelected(){
-            return this.printersModel.length>0 && !this.allPrintersSelected
+        somePrintersSelected() {
+            return this.printersModel.length > 0 && !this.allPrintersSelected
         },
-        icon () {
-        if (this.allPrintersSelected) return 'mdi-close-box'
-        if (this.somePrintersSelected) return 'mdi-minus-box'
-        return 'mdi-checkbox-blank-outline'
-      },
+        icon() {
+            if (this.allPrintersSelected) return 'mdi-close-box'
+            if (this.somePrintersSelected) return 'mdi-minus-box'
+            return 'mdi-checkbox-blank-outline'
+        },
     },
     created() {
         this.$axios.get("printers")
@@ -115,6 +115,4 @@ export default {
 
 </script>
 
-<style>
-
-</style>
+<style></style>
