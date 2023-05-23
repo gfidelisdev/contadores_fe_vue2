@@ -1,13 +1,27 @@
 <template>
     <v-container fluid>
+        <v-snackbar v-model="snackbar" absolute centered>
+            {{ text }}
+
+            <template v-slot:action="{ attrs }">
+                <v-btn color="info" text v-bind="attrs" @click="snackbar = false">
+                    Fechar
+                </v-btn>
+            </template>
+        </v-snackbar>
         <v-row class="myCenter">
-            <v-col class="myCenter">
+            <v-col class="myCenter d-flex flex-column">
                 <!-- Select the initial time -->
-                <v-text-field name="start" label="Início" id="start" v-model="startTime"></v-text-field>
+                <!-- <v-text-field name="start" label="Início" id="start" v-model="startTime"></v-text-field> -->
+                <v-date-picker v-model="startTime" locale="pt-br"></v-date-picker>
+                <div>Início</div>
+
             </v-col>
-            <v-col class="myCenter">
+            <v-col class="myCenter d-flex flex-column">
                 <!-- Select the final time -->
-                <v-text-field name="end" label="Final" id="end" v-model="endTime"></v-text-field>
+                <!-- <v-text-field name="end" label="Final" id="end" v-model="endTime"></v-text-field> -->
+                <v-date-picker v-model="endTime" locale="pt-br"></v-date-picker>
+                <div>Fim</div>
             </v-col>
             <v-col class="myCenter">
                 <v-btn @click="getFailures()" color="success" fab>
@@ -32,7 +46,7 @@
             </v-col>
             <v-col>{{ report.printer.location }}</v-col>
             <v-col>
-                {{ report.printer.ip }}
+                <a :href="`https://${report.printer.ip}`" target="_blank">{{ report.printer.ip }}</a>
             </v-col>
             <v-col>
                 {{ report.failure_time | formatDate }}
@@ -48,7 +62,10 @@ export default {
         return {
             startTime: '',
             endTime: '',
-            reports: []
+            reports: [],
+            snackbar: false,
+            text: 'Não houveram falhas',
+
         }
     },
     filters: {
@@ -62,6 +79,9 @@ export default {
             })
                 .then(data => {
                     this.reports = data.data
+                    if (this.reports.length === 0) {
+                        this.snackbar = true
+                    }
                 })
                 .catch(error => {
                     console.error(error)
