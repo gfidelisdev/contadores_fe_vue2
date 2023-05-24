@@ -36,8 +36,8 @@
             <v-col>
                 Impressora
             </v-col>
-            <v-col>IP</v-col>
             <v-col>Localização</v-col>
+            <v-col>IP</v-col>
             <v-col>Horário da falha</v-col>
         </v-row>
         <v-row v-for="report in reports" :key="report.id">
