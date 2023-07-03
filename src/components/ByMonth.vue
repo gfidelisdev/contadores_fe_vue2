@@ -23,9 +23,6 @@
           <v-data-table fixed-header height="60vh" :headers="headers" :items="printers" :items-per-page="100"
             class="elevation-1">
             <template v-slot:item.status="{ item }">
-              <!-- <v-chip class="ma-2" :color="item.status ? 'green' : 'red'" text-color="white">
-                {{ item.status ? 'Online' : 'Offline' }}
-              </v-chip> -->
               <v-btn :color="item.status ? 'green' : 'red'" fab x-small></v-btn>
             </template>
           </v-data-table>
