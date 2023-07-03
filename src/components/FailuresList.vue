@@ -87,6 +87,7 @@ export default {
             })
                 .then(data => {
                     this.reports = data.data
+                    console.log("🚀 ~ file: FailuresList.vue:90 ~ getFailures ~ this.reports:", this.reports)
                     if (this.reports.length === 0) {
                         this.snackbar = true
                     }
