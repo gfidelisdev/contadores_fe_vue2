@@ -26,7 +26,7 @@
               <!-- <v-chip class="ma-2" :color="item.status ? 'green' : 'red'" text-color="white">
                 {{ item.status ? 'Online' : 'Offline' }}
               </v-chip> -->
-              <v-btn :color="item.status ? 'green' : 'red'"></v-btn>
+              <v-btn :color="item.status ? 'green' : 'red'" fab x-small></v-btn>
             </template>
           </v-data-table>
         </v-col>

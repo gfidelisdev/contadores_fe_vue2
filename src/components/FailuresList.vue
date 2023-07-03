@@ -46,7 +46,7 @@
                 <!-- <v-chip class="ma-2" :color="report.printer.status ? 'green' : 'red'" text-color="white">
                     {{ report.printer.status ? 'Online' : 'Offline' }}
                 </v-chip> -->
-                <v-btn :color="item.status ? 'green' : 'red'"></v-btn>
+                <v-btn :color="item.status ? 'green' : 'red'" fab x-small></v-btn>
             </v-col>
 
             <v-col>
