@@ -58,6 +58,7 @@ export default {
         .map((e, i) => i + 2022),
       printers: [],
       headers: [
+        { text: "Status", value: "status", align: "center", sortable: true },
         { text: "SN", value: "sn", align: "center", sortable: true },
         { text: "IP", value: "ip", align: "center", sortable: true },
         { text: "Local", value: "location", align: "center", sortable: true },
@@ -149,6 +150,7 @@ export default {
           this.printers = data.data.map((item) => {
             if (item.msg) {
               return {
+                status: item.status,
                 sn: item.sn,
                 ip: item.ip,
                 totalPrints: "Sem dados para o período",
