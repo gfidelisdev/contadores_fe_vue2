@@ -33,6 +33,7 @@
             </v-col>
         </v-row>
         <v-row>
+            <v-col>Status</v-col>
             <v-col>
                 Impressora
             </v-col>
@@ -41,6 +42,8 @@
             <v-col>Horário da falha</v-col>
         </v-row>
         <v-row v-for="report in reports" :key="report.id">
+            <v-col><v-chip class="ma-2" :color="report.printer.status ? green : red" text-color="white">
+                </v-chip></v-col>
             <v-col>
                 {{ report.printer.sn }}
             </v-col>
