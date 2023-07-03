@@ -42,9 +42,13 @@
             <v-col>Horário da falha</v-col>
         </v-row>
         <v-row v-for="report in reports" :key="report.id">
-            <v-col><v-chip class="ma-2" :color="report.printer.status ? 'green' : 'red'" text-color="white">
+            <v-col>
+                <!-- <v-chip class="ma-2" :color="report.printer.status ? 'green' : 'red'" text-color="white">
                     {{ report.printer.status ? 'Online' : 'Offline' }}
-                </v-chip></v-col>
+                </v-chip> -->
+                <v-btn :color="item.status ? 'green' : 'red'"></v-btn>
+            </v-col>
+
             <v-col>
                 {{ report.printer.sn }}
             </v-col>
