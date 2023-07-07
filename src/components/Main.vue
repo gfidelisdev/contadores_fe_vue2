@@ -19,9 +19,9 @@
             <v-sheet min-height="70vh" rounded="lg" elevation="18">
               <!--  -->
               <!-- <ByMonth /> -->
+              <FailuresList v-if="listFailures" />
               <ByMonth v-if="byMonth" />
               <ByInterval v-if="byInterval" />
-              <FailuresList v-if="listFailures" />
               <PrintersByDay v-if="printersByDay" />
             </v-sheet>
           </v-col>
@@ -50,9 +50,9 @@ export default {
   data: () => ({
     tab: 0,
     links: [
+      'Falhas',
       'Por mês',
       'Por intervalo',
-      'Falhas',
       'Impressoras por data'
     ],
   }),
@@ -62,13 +62,13 @@ export default {
       return this.tab
     },
     byMonth() {
-      return this.tab == 0
+      return this.tab == 2
     },
     byInterval() {
       return this.tab == 1
     },
     listFailures() {
-      return this.tab == 2
+      return this.tab == 0
     },
     printersByDay() {
       return this.tab == 3
@@ -78,8 +78,8 @@ export default {
 }
 </script>
 <style>
-  .topbar {
-    width: fit-content;
-    box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 1);
-  }
+.topbar {
+  width: fit-content;
+  box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 1);
+}
 </style>

@@ -94,6 +94,9 @@ export default {
                 })
         }
     },
+    created() {
+        this.getFailures()
+    }
 }
 </script>
 
